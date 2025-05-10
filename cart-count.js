@@ -14,10 +14,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!cartToggle.hasAttribute("data-cart-toggle-initialized")) {
       cartToggle.setAttribute("data-cart-toggle-initialized", "true");
 
-      // Improved click handler for the cart toggle button
-      cartToggle.addEventListener("click", (event) => {
+      // Track if a cart toggle action is in progress
+      let cartToggleActionInProgress = false;
+
+      // Helper function to handle cart toggle action
+      const handleCartToggleAction = (event) => {
+        if (cartToggleActionInProgress) return;
+
         event.preventDefault();
         event.stopPropagation();
+
+        // Set flag to prevent double triggers
+        cartToggleActionInProgress = true;
 
         const cartSidebar = document.getElementById("cart-sidebar");
         if (cartSidebar) {
@@ -33,16 +41,55 @@ document.addEventListener("DOMContentLoaded", function () {
             document.addEventListener("click", closeCartSidebarOnOutsideClick);
           }, 10);
         }
+
+        // Reset the flag after a short delay
+        setTimeout(() => {
+          cartToggleActionInProgress = false;
+        }, 300);
+      };
+
+      // Use touchend for mobile devices to prevent double triggering
+      cartToggle.addEventListener("touchend", handleCartToggleAction, {
+        passive: false,
       });
 
-      // Also add click handler to any icons inside the cart toggle
+      // Use click for desktop devices
+      cartToggle.addEventListener("click", (event) => {
+        // Only process click events that aren't from touch events
+        if (
+          !event.sourceCapabilities ||
+          !event.sourceCapabilities.firesTouchEvents
+        ) {
+          handleCartToggleAction(event);
+        }
+      });
+
+      // Also handle any icons inside the cart toggle
       const cartIcon = cartToggle.querySelector("i");
       if (cartIcon) {
+        // Use touchend for mobile devices
+        cartIcon.addEventListener(
+          "touchend",
+          (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            // Don't trigger click, use the same handler
+            handleCartToggleAction(event);
+          },
+          { passive: false }
+        );
+
+        // Use click for desktop devices
         cartIcon.addEventListener("click", (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          // Trigger a click on the parent button
-          cartToggle.click();
+          // Only process click events that aren't from touch events
+          if (
+            !event.sourceCapabilities ||
+            !event.sourceCapabilities.firesTouchEvents
+          ) {
+            event.preventDefault();
+            event.stopPropagation();
+            handleCartToggleAction(event);
+          }
         });
       }
     }
@@ -51,8 +98,41 @@ document.addEventListener("DOMContentLoaded", function () {
   // Setup close cart button if not already handled
   const closeCartBtn = document.getElementById("close-cart");
   if (closeCartBtn) {
-    closeCartBtn.addEventListener("click", () => {
+    // Track if a close cart action is in progress
+    let closeCartActionInProgress = false;
+
+    // Helper function to handle close cart action
+    const handleCloseCartAction = (event) => {
+      if (closeCartActionInProgress) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      // Set flag to prevent double triggers
+      closeCartActionInProgress = true;
+
       closeCartSidebar();
+
+      // Reset the flag after a short delay
+      setTimeout(() => {
+        closeCartActionInProgress = false;
+      }, 300);
+    };
+
+    // Use touchend for mobile devices to prevent double triggering
+    closeCartBtn.addEventListener("touchend", handleCloseCartAction, {
+      passive: false,
+    });
+
+    // Use click for desktop devices
+    closeCartBtn.addEventListener("click", (event) => {
+      // Only process click events that aren't from touch events
+      if (
+        !event.sourceCapabilities ||
+        !event.sourceCapabilities.firesTouchEvents
+      ) {
+        handleCloseCartAction(event);
+      }
     });
   }
 });

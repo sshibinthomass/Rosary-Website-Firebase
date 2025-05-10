@@ -56,69 +56,107 @@ function loadCart() {
 
   // No need to adjust padding for fixed footer anymore as it's been removed
 
+  // Track if a button action is in progress to prevent double triggers
+  let buttonActionInProgress = false;
+
+  // Helper function to handle button actions with debounce
+  const handleButtonAction = (button, action) => {
+    if (buttonActionInProgress) return;
+
+    buttonActionInProgress = true;
+
+    // Get the index from the button's data attribute
+    const index = button.dataset.index;
+
+    // Perform the action
+    action(index);
+
+    // Reset the flag after a short delay
+    setTimeout(() => {
+      buttonActionInProgress = false;
+    }, 300); // 300ms delay to prevent double triggers
+  };
+
   // Attach event listeners to buttons with improved touch handling
   document.querySelectorAll(".increase").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.stopPropagation(); // Prevent the click from closing the sidebar
-      event.preventDefault(); // Prevent default behavior
-      // Get the index from the button's data attribute, not from the target
-      // This ensures it works whether you click the button or the icon inside
-      const index = button.dataset.index;
-      changeQuantity(index, 1);
-    });
-
-    // Add touchstart event for mobile
+    // Use only touchend for mobile devices to prevent double triggering
     button.addEventListener(
-      "touchstart",
+      "touchend",
       (event) => {
         event.stopPropagation();
-        const index = button.dataset.index;
-        changeQuantity(index, 1);
+        event.preventDefault();
+        handleButtonAction(button, (index) => changeQuantity(index, 1));
       },
       { passive: false }
     );
+
+    // Keep click for desktop devices
+    button.addEventListener("click", (event) => {
+      // Only process click events that aren't from touch events
+      if (
+        event.pointerType !== "touch" &&
+        event.sourceCapabilities &&
+        !event.sourceCapabilities.firesTouchEvents
+      ) {
+        event.stopPropagation();
+        event.preventDefault();
+        handleButtonAction(button, (index) => changeQuantity(index, 1));
+      }
+    });
   });
 
   document.querySelectorAll(".decrease").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.stopPropagation(); // Prevent the click from closing the sidebar
-      event.preventDefault(); // Prevent default behavior
-      // Get the index from the button's data attribute, not from the target
-      const index = button.dataset.index;
-      changeQuantity(index, -1);
-    });
-
-    // Add touchstart event for mobile
+    // Use only touchend for mobile devices to prevent double triggering
     button.addEventListener(
-      "touchstart",
+      "touchend",
       (event) => {
         event.stopPropagation();
-        const index = button.dataset.index;
-        changeQuantity(index, -1);
+        event.preventDefault();
+        handleButtonAction(button, (index) => changeQuantity(index, -1));
       },
       { passive: false }
     );
+
+    // Keep click for desktop devices
+    button.addEventListener("click", (event) => {
+      // Only process click events that aren't from touch events
+      if (
+        event.pointerType !== "touch" &&
+        event.sourceCapabilities &&
+        !event.sourceCapabilities.firesTouchEvents
+      ) {
+        event.stopPropagation();
+        event.preventDefault();
+        handleButtonAction(button, (index) => changeQuantity(index, -1));
+      }
+    });
   });
 
   document.querySelectorAll(".remove-btn").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.stopPropagation(); // Prevent the click from closing the sidebar
-      event.preventDefault(); // Prevent default behavior
-      // Get the index from the button's data attribute, not from the target
-      const index = button.dataset.index;
-      removeFromCart(index);
-    });
-
-    // Add touchstart event for mobile
+    // Use only touchend for mobile devices to prevent double triggering
     button.addEventListener(
-      "touchstart",
+      "touchend",
       (event) => {
         event.stopPropagation();
-        const index = button.dataset.index;
-        removeFromCart(index);
+        event.preventDefault();
+        handleButtonAction(button, (index) => removeFromCart(index));
       },
       { passive: false }
     );
+
+    // Keep click for desktop devices
+    button.addEventListener("click", (event) => {
+      // Only process click events that aren't from touch events
+      if (
+        event.pointerType !== "touch" &&
+        event.sourceCapabilities &&
+        !event.sourceCapabilities.firesTouchEvents
+      ) {
+        event.stopPropagation();
+        event.preventDefault();
+        handleButtonAction(button, (index) => removeFromCart(index));
+      }
+    });
   });
 }
 
@@ -255,38 +293,46 @@ window.closeCartSidebar = closeCartSidebar;
 
 // Add event listeners to cart summary buttons to prevent closing when clicked
 document.addEventListener("DOMContentLoaded", function () {
-  // Use event delegation for the place order button
-  document.addEventListener("click", function (event) {
-    if (event.target.closest(".place-order-btn")) {
+  // Track if a summary button action is in progress
+  let summaryButtonActionInProgress = false;
+
+  // Helper function to handle summary button actions
+  const handleSummaryButtonAction = (event) => {
+    if (summaryButtonActionInProgress) return;
+
+    if (
+      event.target.closest(".place-order-btn") ||
+      event.target.closest(".clear-cart-btn") ||
+      event.target.closest(".close-cart-btn")
+    ) {
       event.stopPropagation();
+
+      // Set flag to prevent double triggers
+      summaryButtonActionInProgress = true;
+
+      // Reset the flag after a short delay
+      setTimeout(() => {
+        summaryButtonActionInProgress = false;
+      }, 300);
+    }
+  };
+
+  // Use event delegation for click events on desktop
+  document.addEventListener("click", function (event) {
+    // Only process click events that aren't from touch events
+    if (
+      !event.sourceCapabilities ||
+      !event.sourceCapabilities.firesTouchEvents
+    ) {
+      handleSummaryButtonAction(event);
     }
   });
 
-  // Use event delegation for the clear cart button
-  document.addEventListener("click", function (event) {
-    if (event.target.closest(".clear-cart-btn")) {
-      event.stopPropagation();
-    }
-  });
-
-  // Use event delegation for the close cart button
-  document.addEventListener("click", function (event) {
-    if (event.target.closest(".close-cart-btn")) {
-      event.stopPropagation();
-    }
-  });
-
-  // Add touchstart events for mobile
+  // Use touchend for mobile devices to prevent double triggering
   document.addEventListener(
-    "touchstart",
+    "touchend",
     function (event) {
-      if (
-        event.target.closest(".place-order-btn") ||
-        event.target.closest(".clear-cart-btn") ||
-        event.target.closest(".close-cart-btn")
-      ) {
-        event.stopPropagation();
-      }
+      handleSummaryButtonAction(event);
     },
     { passive: false }
   );
