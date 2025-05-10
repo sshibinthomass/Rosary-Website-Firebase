@@ -258,32 +258,43 @@
         <div class="cart-summary-title">
           <i class="fas fa-receipt"></i> Order Summary
         </div>
-        <div class="cart-summary-item">
-          <span>Subtotal:</span>
-          <span>₹<span id="cart-total">0.00</span></span>
-        </div>
-        <div class="cart-summary-item">
-          <span>Delivery:</span>
-          <span>Additional</span>
-        </div>
-        <div class="cart-summary-item">
-          <span>Total Plants:</span>
-          <span id="cart-count-total">0</span>
-        </div>
-        <div class="cart-summary-total">
-          <span>Total:</span>
-          <span>₹<span id="cart-total-with-delivery">0.00</span></span>
+        <div class="cart-summary-columns">
+          <div class="cart-summary-left">
+            <div class="cart-summary-item">
+              <span>Delivery:</span>
+              <span>Additional</span>
+            </div>
+          </div>
+          <div class="cart-summary-right">
+            <div class="cart-summary-item">
+              <span>Total Plants:</span>
+              <span id="cart-count-total">0</span>
+            </div>
+            <div class="cart-summary-total">
+              <span>Total:</span>
+              <span>₹<span id="cart-total-with-delivery">0.00</span></span>
+            </div>
+          </div>
         </div>
         <button
-          class="checkout-btn"
+          class="place-order-btn"
           onclick="placeOrderViaWhatsApp()"
           type="button"
         >
           <i class="fas fa-leaf"></i> Place Order
         </button>
-        <button class="clear-cart-btn" onclick="clearCart()" type="button">
-          <i class="fas fa-trash"></i> Clear Cart
-        </button>
+        <div class="cart-summary-actions">
+          <button class="clear-cart-btn" onclick="clearCart()" type="button">
+            <i class="fas fa-trash"></i> Clear Cart
+          </button>
+          <button
+            class="close-cart-btn"
+            onclick="closeCartSidebar()"
+            type="button"
+          >
+            <i class="fas fa-times"></i> Close Cart
+          </button>
+        </div>
       </div>
     </div>
   </body>

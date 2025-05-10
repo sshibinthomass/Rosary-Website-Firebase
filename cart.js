@@ -46,9 +46,6 @@ function loadCart() {
     cartContainer.appendChild(cartItem);
   });
 
-  // Update subtotal
-  document.getElementById("cart-total").textContent = total.toFixed(2);
-
   // Calculate total (delivery fee will be added separately)
   const totalWithDelivery = total;
   document.getElementById("cart-total-with-delivery").textContent =
@@ -57,33 +54,71 @@ function loadCart() {
   // Update total plants count
   document.getElementById("cart-count-total").textContent = totalPlants;
 
-  // Attach event listeners to buttons
+  // No need to adjust padding for fixed footer anymore as it's been removed
+
+  // Attach event listeners to buttons with improved touch handling
   document.querySelectorAll(".increase").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation(); // Prevent the click from closing the sidebar
+      event.preventDefault(); // Prevent default behavior
       // Get the index from the button's data attribute, not from the target
       // This ensures it works whether you click the button or the icon inside
       const index = button.dataset.index;
       changeQuantity(index, 1);
     });
+
+    // Add touchstart event for mobile
+    button.addEventListener(
+      "touchstart",
+      (event) => {
+        event.stopPropagation();
+        const index = button.dataset.index;
+        changeQuantity(index, 1);
+      },
+      { passive: false }
+    );
   });
 
   document.querySelectorAll(".decrease").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation(); // Prevent the click from closing the sidebar
+      event.preventDefault(); // Prevent default behavior
       // Get the index from the button's data attribute, not from the target
       const index = button.dataset.index;
       changeQuantity(index, -1);
     });
+
+    // Add touchstart event for mobile
+    button.addEventListener(
+      "touchstart",
+      (event) => {
+        event.stopPropagation();
+        const index = button.dataset.index;
+        changeQuantity(index, -1);
+      },
+      { passive: false }
+    );
   });
 
   document.querySelectorAll(".remove-btn").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation(); // Prevent the click from closing the sidebar
+      event.preventDefault(); // Prevent default behavior
       // Get the index from the button's data attribute, not from the target
       const index = button.dataset.index;
       removeFromCart(index);
     });
+
+    // Add touchstart event for mobile
+    button.addEventListener(
+      "touchstart",
+      (event) => {
+        event.stopPropagation();
+        const index = button.dataset.index;
+        removeFromCart(index);
+      },
+      { passive: false }
+    );
   });
 }
 
@@ -99,11 +134,7 @@ function changeQuantity(index, amount) {
   loadCart();
 
   // Update cart count in header
-  if (typeof updateCartCountDisplay === "function") {
-    updateCartCountDisplay();
-  } else {
-    updateCartCount();
-  }
+  updateCartCount();
 }
 
 function removeFromCart(index) {
@@ -113,11 +144,7 @@ function removeFromCart(index) {
   loadCart();
 
   // Update cart count in header
-  if (typeof updateCartCountDisplay === "function") {
-    updateCartCountDisplay();
-  } else {
-    updateCartCount();
-  }
+  updateCartCount();
 }
 
 function clearCart() {
@@ -125,11 +152,7 @@ function clearCart() {
   loadCart();
 
   // Update cart count in header
-  if (typeof updateCartCountDisplay === "function") {
-    updateCartCountDisplay();
-  } else {
-    updateCartCount();
-  }
+  updateCartCount();
 }
 
 // Toggle cart sidebar
@@ -231,17 +254,43 @@ window.placeOrderViaWhatsApp = placeOrderViaWhatsApp;
 window.closeCartSidebar = closeCartSidebar;
 
 // Add event listeners to cart summary buttons to prevent closing when clicked
-document
-  .querySelector(".place-order-btn")
-  .addEventListener("click", (event) => {
-    event.stopPropagation();
+document.addEventListener("DOMContentLoaded", function () {
+  // Use event delegation for the place order button
+  document.addEventListener("click", function (event) {
+    if (event.target.closest(".place-order-btn")) {
+      event.stopPropagation();
+    }
   });
 
-document
-  .querySelector("button[onclick='clearCart()']")
-  .addEventListener("click", (event) => {
-    event.stopPropagation();
+  // Use event delegation for the clear cart button
+  document.addEventListener("click", function (event) {
+    if (event.target.closest(".clear-cart-btn")) {
+      event.stopPropagation();
+    }
   });
+
+  // Use event delegation for the close cart button
+  document.addEventListener("click", function (event) {
+    if (event.target.closest(".close-cart-btn")) {
+      event.stopPropagation();
+    }
+  });
+
+  // Add touchstart events for mobile
+  document.addEventListener(
+    "touchstart",
+    function (event) {
+      if (
+        event.target.closest(".place-order-btn") ||
+        event.target.closest(".clear-cart-btn") ||
+        event.target.closest(".close-cart-btn")
+      ) {
+        event.stopPropagation();
+      }
+    },
+    { passive: false }
+  );
+});
 
 // Function to update cart count in the header
 function updateCartCount() {
@@ -265,8 +314,4 @@ document.addEventListener("DOMContentLoaded", function () {
 loadCart();
 
 // Update cart count in header
-if (typeof updateCartCountDisplay === "function") {
-  updateCartCountDisplay();
-} else {
-  updateCartCount();
-}
+updateCartCount();
