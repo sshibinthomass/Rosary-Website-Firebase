@@ -317,7 +317,7 @@ function placeOrderViaWhatsApp() {
 
   // You should replace this with your actual WhatsApp number with country code
   // For example: const phoneNumber = "919876543210"; (for India +91)
-  const phoneNumber = "919876543210"; // Replace with your actual WhatsApp number
+  const phoneNumber = "917904050237"; // Replace with your actual WhatsApp number
 
   // Format the order message
   let message = "Hello, i have chosen the following plants from your site\n";
