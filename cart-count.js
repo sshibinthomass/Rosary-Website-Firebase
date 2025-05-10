@@ -2,9 +2,50 @@
 // and ensuring cart toggle functionality works on all pages
 // It should be included on all pages
 
+// Variables to track touch start position and movement
+let touchStartY = 0;
+let touchStartX = 0;
+let isTouchScrolling = false;
+const scrollThreshold = 10; // Pixels of movement to consider it a scroll instead of a tap
+
+// Function to handle touch start
+const handleTouchStart = (event) => {
+  touchStartY = event.touches[0].clientY;
+  touchStartX = event.touches[0].clientX;
+  isTouchScrolling = false;
+};
+
+// Function to handle touch move
+const handleTouchMove = (event) => {
+  if (!touchStartY || !touchStartX) return;
+
+  const touchY = event.touches[0].clientY;
+  const touchX = event.touches[0].clientX;
+
+  // Calculate distance moved
+  const diffY = Math.abs(touchY - touchStartY);
+  const diffX = Math.abs(touchX - touchStartX);
+
+  // If moved more than threshold in any direction, consider it a scroll
+  if (diffY > scrollThreshold || diffX > scrollThreshold) {
+    isTouchScrolling = true;
+  }
+};
+
 document.addEventListener("DOMContentLoaded", function () {
   // Update cart count when page loads
   updateCartCountDisplay();
+
+  // Add touch event listeners to the cart container to detect scrolling
+  const cartContainer = document.getElementById("cart-container");
+  if (cartContainer) {
+    cartContainer.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+    cartContainer.addEventListener("touchmove", handleTouchMove, {
+      passive: true,
+    });
+  }
 
   // Setup cart toggle functionality if not already handled by cart.js
   const cartToggle = document.getElementById("cart-toggle");
@@ -19,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Helper function to handle cart toggle action
       const handleCartToggleAction = (event) => {
-        if (cartToggleActionInProgress) return;
+        if (cartToggleActionInProgress || isTouchScrolling) return;
 
         event.preventDefault();
         event.stopPropagation();
@@ -48,10 +89,30 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 300);
       };
 
-      // Use touchend for mobile devices to prevent double triggering
-      cartToggle.addEventListener("touchend", handleCartToggleAction, {
-        passive: false,
+      // Track touch start on the button itself
+      cartToggle.addEventListener("touchstart", handleTouchStart, {
+        passive: true,
       });
+
+      // Use touchend for mobile devices with scroll detection
+      cartToggle.addEventListener(
+        "touchend",
+        (event) => {
+          event.stopPropagation();
+
+          // Only trigger if not scrolling
+          if (!isTouchScrolling) {
+            event.preventDefault();
+            handleCartToggleAction(event);
+          }
+
+          // Reset scrolling state after a short delay
+          setTimeout(() => {
+            isTouchScrolling = false;
+          }, 100);
+        },
+        { passive: false }
+      );
 
       // Use click for desktop devices
       cartToggle.addEventListener("click", (event) => {
@@ -67,14 +128,27 @@ document.addEventListener("DOMContentLoaded", function () {
       // Also handle any icons inside the cart toggle
       const cartIcon = cartToggle.querySelector("i");
       if (cartIcon) {
-        // Use touchend for mobile devices
+        // Track touch start on the icon itself
+        cartIcon.addEventListener("touchstart", handleTouchStart, {
+          passive: true,
+        });
+
+        // Use touchend for mobile devices with scroll detection
         cartIcon.addEventListener(
           "touchend",
           (event) => {
-            event.preventDefault();
             event.stopPropagation();
-            // Don't trigger click, use the same handler
-            handleCartToggleAction(event);
+
+            // Only trigger if not scrolling
+            if (!isTouchScrolling) {
+              event.preventDefault();
+              handleCartToggleAction(event);
+            }
+
+            // Reset scrolling state after a short delay
+            setTimeout(() => {
+              isTouchScrolling = false;
+            }, 100);
           },
           { passive: false }
         );
@@ -103,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Helper function to handle close cart action
     const handleCloseCartAction = (event) => {
-      if (closeCartActionInProgress) return;
+      if (closeCartActionInProgress || isTouchScrolling) return;
 
       event.preventDefault();
       event.stopPropagation();
@@ -119,10 +193,30 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 300);
     };
 
-    // Use touchend for mobile devices to prevent double triggering
-    closeCartBtn.addEventListener("touchend", handleCloseCartAction, {
-      passive: false,
+    // Track touch start on the button itself
+    closeCartBtn.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
     });
+
+    // Use touchend for mobile devices with scroll detection
+    closeCartBtn.addEventListener(
+      "touchend",
+      (event) => {
+        event.stopPropagation();
+
+        // Only trigger if not scrolling
+        if (!isTouchScrolling) {
+          event.preventDefault();
+          handleCloseCartAction(event);
+        }
+
+        // Reset scrolling state after a short delay
+        setTimeout(() => {
+          isTouchScrolling = false;
+        }, 100);
+      },
+      { passive: false }
+    );
 
     // Use click for desktop devices
     closeCartBtn.addEventListener("click", (event) => {

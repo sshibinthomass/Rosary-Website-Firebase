@@ -56,12 +56,18 @@ function loadCart() {
 
   // No need to adjust padding for fixed footer anymore as it's been removed
 
+  // Variables to track touch start position and movement
+  let touchStartY = 0;
+  let touchStartX = 0;
+  let isTouchScrolling = false;
+  const scrollThreshold = 10; // Pixels of movement to consider it a scroll instead of a tap
+
   // Track if a button action is in progress to prevent double triggers
   let buttonActionInProgress = false;
 
   // Helper function to handle button actions with debounce
   const handleButtonAction = (button, action) => {
-    if (buttonActionInProgress) return;
+    if (buttonActionInProgress || isTouchScrolling) return;
 
     buttonActionInProgress = true;
 
@@ -77,15 +83,59 @@ function loadCart() {
     }, 300); // 300ms delay to prevent double triggers
   };
 
+  // Function to handle touch start on cart container
+  const handleTouchStart = (event) => {
+    touchStartY = event.touches[0].clientY;
+    touchStartX = event.touches[0].clientX;
+    isTouchScrolling = false;
+  };
+
+  // Function to handle touch move on cart container
+  const handleTouchMove = (event) => {
+    if (!touchStartY || !touchStartX) return;
+
+    const touchY = event.touches[0].clientY;
+    const touchX = event.touches[0].clientX;
+
+    // Calculate distance moved
+    const diffY = Math.abs(touchY - touchStartY);
+    const diffX = Math.abs(touchX - touchStartX);
+
+    // If moved more than threshold in any direction, consider it a scroll
+    if (diffY > scrollThreshold || diffX > scrollThreshold) {
+      isTouchScrolling = true;
+    }
+  };
+
+  // Add touch event listeners to the cart container to detect scrolling
+  cartContainer.addEventListener("touchstart", handleTouchStart, {
+    passive: true,
+  });
+  cartContainer.addEventListener("touchmove", handleTouchMove, {
+    passive: true,
+  });
+
   // Attach event listeners to buttons with improved touch handling
   document.querySelectorAll(".increase").forEach((button) => {
-    // Use only touchend for mobile devices to prevent double triggering
+    // Track touch start on the button itself
+    button.addEventListener("touchstart", handleTouchStart, { passive: true });
+
+    // Use touchend for mobile devices with scroll detection
     button.addEventListener(
       "touchend",
       (event) => {
         event.stopPropagation();
-        event.preventDefault();
-        handleButtonAction(button, (index) => changeQuantity(index, 1));
+
+        // Only trigger if not scrolling
+        if (!isTouchScrolling) {
+          event.preventDefault();
+          handleButtonAction(button, (index) => changeQuantity(index, 1));
+        }
+
+        // Reset scrolling state after a short delay
+        setTimeout(() => {
+          isTouchScrolling = false;
+        }, 100);
       },
       { passive: false }
     );
@@ -106,13 +156,25 @@ function loadCart() {
   });
 
   document.querySelectorAll(".decrease").forEach((button) => {
-    // Use only touchend for mobile devices to prevent double triggering
+    // Track touch start on the button itself
+    button.addEventListener("touchstart", handleTouchStart, { passive: true });
+
+    // Use touchend for mobile devices with scroll detection
     button.addEventListener(
       "touchend",
       (event) => {
         event.stopPropagation();
-        event.preventDefault();
-        handleButtonAction(button, (index) => changeQuantity(index, -1));
+
+        // Only trigger if not scrolling
+        if (!isTouchScrolling) {
+          event.preventDefault();
+          handleButtonAction(button, (index) => changeQuantity(index, -1));
+        }
+
+        // Reset scrolling state after a short delay
+        setTimeout(() => {
+          isTouchScrolling = false;
+        }, 100);
       },
       { passive: false }
     );
@@ -133,13 +195,25 @@ function loadCart() {
   });
 
   document.querySelectorAll(".remove-btn").forEach((button) => {
-    // Use only touchend for mobile devices to prevent double triggering
+    // Track touch start on the button itself
+    button.addEventListener("touchstart", handleTouchStart, { passive: true });
+
+    // Use touchend for mobile devices with scroll detection
     button.addEventListener(
       "touchend",
       (event) => {
         event.stopPropagation();
-        event.preventDefault();
-        handleButtonAction(button, (index) => removeFromCart(index));
+
+        // Only trigger if not scrolling
+        if (!isTouchScrolling) {
+          event.preventDefault();
+          handleButtonAction(button, (index) => removeFromCart(index));
+        }
+
+        // Reset scrolling state after a short delay
+        setTimeout(() => {
+          isTouchScrolling = false;
+        }, 100);
       },
       { passive: false }
     );

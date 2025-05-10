@@ -13,6 +13,7 @@
     <script src="darkmode.js" defer></script>
     <script src="cart.js" defer></script>
     <script src="cart-count.js" defer></script>
+    <script src="reviews-pagination.js" defer></script>
   </head>
   <body>
     <header>
@@ -55,179 +56,19 @@
 
     <main class="page-content">
       <div class="container">
-        <h2 class="page-title">Share Your Feedback</h2>
+        <h2 class="page-title">Customer Reviews</h2>
 
-        <div class="feedback-intro">
-          <p>
-            We value your opinion! Please share your thoughts about our plants,
-            service, and website experience. Your feedback helps us grow better.
-          </p>
-        </div>
-
-        <div class="feedback-container">
-          <form id="feedbackForm" class="feedback-form">
-            <div class="form-group">
-              <label for="feedbackName">Your Name</label>
-              <input type="text" id="feedbackName" name="name" required />
-            </div>
-
-            <div class="form-group">
-              <label for="feedbackEmail">Email Address</label>
-              <input type="email" id="feedbackEmail" name="email" required />
-            </div>
-
-            <div class="form-group">
-              <label>Type of Feedback</label>
-              <div class="radio-group">
-                <label>
-                  <input
-                    type="radio"
-                    name="feedbackType"
-                    value="product"
-                    checked
-                  />
-                  Product Quality
-                </label>
-                <label>
-                  <input type="radio" name="feedbackType" value="service" />
-                  Customer Service
-                </label>
-                <label>
-                  <input type="radio" name="feedbackType" value="website" />
-                  Website Experience
-                </label>
-                <label>
-                  <input type="radio" name="feedbackType" value="delivery" />
-                  Delivery Experience
-                </label>
-                <label>
-                  <input type="radio" name="feedbackType" value="other" />
-                  Other
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label>Rate Your Experience</label>
-              <div class="rating-container">
-                <div class="rating">
-                  <input type="radio" id="star5" name="rating" value="5" />
-                  <label for="star5" title="5 stars"
-                    ><i class="fas fa-star"></i
-                  ></label>
-                  <input type="radio" id="star4" name="rating" value="4" />
-                  <label for="star4" title="4 stars"
-                    ><i class="fas fa-star"></i
-                  ></label>
-                  <input type="radio" id="star3" name="rating" value="3" />
-                  <label for="star3" title="3 stars"
-                    ><i class="fas fa-star"></i
-                  ></label>
-                  <input type="radio" id="star2" name="rating" value="2" />
-                  <label for="star2" title="2 stars"
-                    ><i class="fas fa-star"></i
-                  ></label>
-                  <input type="radio" id="star1" name="rating" value="1" />
-                  <label for="star1" title="1 star"
-                    ><i class="fas fa-star"></i
-                  ></label>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="feedbackMessage">Your Feedback</label>
-              <textarea
-                id="feedbackMessage"
-                name="message"
-                rows="6"
-                required
-              ></textarea>
-            </div>
-
-            <div class="form-group">
-              <label>Would you recommend us to others?</label>
-              <div class="radio-group inline">
-                <label>
-                  <input type="radio" name="recommend" value="yes" checked />
-                  Yes
-                </label>
-                <label>
-                  <input type="radio" name="recommend" value="maybe" />
-                  Maybe
-                </label>
-                <label>
-                  <input type="radio" name="recommend" value="no" />
-                  No
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="improvements">Suggestions for Improvement</label>
-              <textarea
-                id="improvements"
-                name="improvements"
-                rows="4"
-              ></textarea>
-            </div>
-
-            <div class="form-group">
-              <label>
-                <input type="checkbox" name="contact" value="yes" />
-                I'm open to being contacted about my feedback
-              </label>
-            </div>
-
-            <button type="submit" class="submit-btn">Submit Feedback</button>
-          </form>
-
-          <div class="testimonials">
-            <h3>What Our Customers Say</h3>
-
-            <div class="testimonial">
-              <div class="testimonial-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-              <p>
-                "The plants I received were healthy and beautifully packaged.
-                The care instructions were very helpful!"
-              </p>
-              <div class="testimonial-author">- Priya S.</div>
-            </div>
-
-            <div class="testimonial">
-              <div class="testimonial-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-              <p>
-                "Great selection of indoor plants. The delivery was prompt and
-                the plants were in perfect condition."
-              </p>
-              <div class="testimonial-author">- Rahul M.</div>
-            </div>
-
-            <div class="testimonial">
-              <div class="testimonial-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-              <p>
-                "The customer service is exceptional. They helped me choose the
-                perfect plants for my low-light apartment."
-              </p>
-              <div class="testimonial-author">- Anjali K.</div>
+        <div class="reviews-container">
+          <div class="reviews-header">
+            <div class="google-reviews-badge">
+              <a
+                href="https://maps.app.goo.gl/DZJt4Bv8WuBkeqE3A"
+                target="_blank"
+                rel="noopener"
+                class="google-reviews-link"
+              >
+                <i class="fab fa-google"></i> Google Reviews (64)
+              </a>
             </div>
           </div>
         </div>
