@@ -31,8 +31,20 @@ async function fetchPlants() {
     ...doc.data(),
   }));
 
+  // Log plants with availability status for debugging
+  console.log(
+    "Plants with availability status:",
+    allPlants.map((plant) => ({
+      id: plant.id,
+      title: plant.title,
+      available: plant.available,
+    }))
+  );
+
   // Sort plants by ID
   allPlants.sort((a, b) => a.id - b.id);
+
+  // Note: Plants will be filtered by availability in the filterPlants function
 
   // Apply filter from URL if available
   applyFiltersFromURL();
@@ -91,7 +103,22 @@ function filterPlants() {
   window.history.pushState({}, "", url);
 
   // Apply the filters
-  let filteredPlants = allPlants;
+  // First filter out plants that are not available
+  const unavailablePlants = allPlants.filter(
+    (plant) => plant.available !== undefined && plant.available !== true
+  );
+
+  if (unavailablePlants.length > 0) {
+    console.log(
+      "Filtered out unavailable plants:",
+      unavailablePlants.map((p) => ({ id: p.id, title: p.title }))
+    );
+  }
+
+  let filteredPlants = allPlants.filter((plant) => {
+    // If available property doesn't exist, default to true for backward compatibility
+    return plant.available === undefined ? true : plant.available === true;
+  });
 
   // Apply dropdown filters with multiple selection support
   if (
@@ -330,7 +357,7 @@ function displayPlants(plants) {
   plants.forEach((plant) => {
     const plantCard = document.createElement("div");
     plantCard.classList.add("plant-card");
-
+    console.log(plant);
     // Calculate discount percentage
     const originalPrice = parseFloat(plant.originalPrice);
     const salesPrice = parseFloat(plant.salesPrice);
