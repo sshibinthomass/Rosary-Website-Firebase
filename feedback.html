@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback - Rosary Plant House</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="navigation.js" defer></script>
+    <script src="darkmode.js" defer></script>
+    <script src="cart.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <h1><i class="fas fa-leaf"></i> Rosary Plant House</h1>
+        <div class="header-controls">
+          <button
+            id="dark-mode-toggle"
+            onclick="toggleDarkMode()"
+            type="button"
+            title="Toggle Dark Mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="#" class="cart-link" id="cart-toggle"
+            ><i class="fas fa-shopping-cart"></i> Cart (<span id="cart-count"
+              >0</span
+            >)</a
+          >
+          <button
+            id="mobile-nav-toggle"
+            class="mobile-nav-toggle"
+            type="button"
+            title="Toggle Navigation Menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="care-tips.html">Care Tips</a></li>
+          <li><a href="feedback.html" class="active">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="page-content">
+      <div class="container">
+        <h2 class="page-title">Share Your Feedback</h2>
+
+        <div class="feedback-intro">
+          <p>
+            We value your opinion! Please share your thoughts about our plants,
+            service, and website experience. Your feedback helps us grow better.
+          </p>
+        </div>
+
+        <div class="feedback-container">
+          <form id="feedbackForm" class="feedback-form">
+            <div class="form-group">
+              <label for="feedbackName">Your Name</label>
+              <input type="text" id="feedbackName" name="name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="feedbackEmail">Email Address</label>
+              <input type="email" id="feedbackEmail" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label>Type of Feedback</label>
+              <div class="radio-group">
+                <label>
+                  <input
+                    type="radio"
+                    name="feedbackType"
+                    value="product"
+                    checked
+                  />
+                  Product Quality
+                </label>
+                <label>
+                  <input type="radio" name="feedbackType" value="service" />
+                  Customer Service
+                </label>
+                <label>
+                  <input type="radio" name="feedbackType" value="website" />
+                  Website Experience
+                </label>
+                <label>
+                  <input type="radio" name="feedbackType" value="delivery" />
+                  Delivery Experience
+                </label>
+                <label>
+                  <input type="radio" name="feedbackType" value="other" />
+                  Other
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Rate Your Experience</label>
+              <div class="rating-container">
+                <div class="rating">
+                  <input type="radio" id="star5" name="rating" value="5" />
+                  <label for="star5" title="5 stars"
+                    ><i class="fas fa-star"></i
+                  ></label>
+                  <input type="radio" id="star4" name="rating" value="4" />
+                  <label for="star4" title="4 stars"
+                    ><i class="fas fa-star"></i
+                  ></label>
+                  <input type="radio" id="star3" name="rating" value="3" />
+                  <label for="star3" title="3 stars"
+                    ><i class="fas fa-star"></i
+                  ></label>
+                  <input type="radio" id="star2" name="rating" value="2" />
+                  <label for="star2" title="2 stars"
+                    ><i class="fas fa-star"></i
+                  ></label>
+                  <input type="radio" id="star1" name="rating" value="1" />
+                  <label for="star1" title="1 star"
+                    ><i class="fas fa-star"></i
+                  ></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="feedbackMessage">Your Feedback</label>
+              <textarea
+                id="feedbackMessage"
+                name="message"
+                rows="6"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Would you recommend us to others?</label>
+              <div class="radio-group inline">
+                <label>
+                  <input type="radio" name="recommend" value="yes" checked />
+                  Yes
+                </label>
+                <label>
+                  <input type="radio" name="recommend" value="maybe" />
+                  Maybe
+                </label>
+                <label>
+                  <input type="radio" name="recommend" value="no" />
+                  No
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="improvements">Suggestions for Improvement</label>
+              <textarea
+                id="improvements"
+                name="improvements"
+                rows="4"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="contact" value="yes" />
+                I'm open to being contacted about my feedback
+              </label>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+          </form>
+
+          <div class="testimonials">
+            <h3>What Our Customers Say</h3>
+
+            <div class="testimonial">
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <p>
+                "The plants I received were healthy and beautifully packaged.
+                The care instructions were very helpful!"
+              </p>
+              <div class="testimonial-author">- Priya S.</div>
+            </div>
+
+            <div class="testimonial">
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <p>
+                "Great selection of indoor plants. The delivery was prompt and
+                the plants were in perfect condition."
+              </p>
+              <div class="testimonial-author">- Rahul M.</div>
+            </div>
+
+            <div class="testimonial">
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <p>
+                "The customer service is exceptional. They helped me choose the
+                perfect plants for my low-light apartment."
+              </p>
+              <div class="testimonial-author">- Anjali K.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 Rosary Plant House. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar">
+      <div class="cart-header">
+        <h2><i class="fas fa-leaf"></i> Rosary Plant Cart</h2>
+        <button
+          id="close-cart"
+          class="close-cart"
+          title="Close Cart"
+          type="button"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="cart-container"></div>
+      <div class="cart-summary">
+        <div class="cart-summary-title">
+          <i class="fas fa-receipt"></i> Order Summary
+        </div>
+        <div class="cart-summary-item">
+          <span>Subtotal:</span>
+          <span>₹<span id="cart-total">0.00</span></span>
+        </div>
+        <div class="cart-summary-item">
+          <span>Delivery:</span>
+          <span>Additional</span>
+        </div>
+        <div class="cart-summary-item">
+          <span>Total Plants:</span>
+          <span id="cart-count-total">0</span>
+        </div>
+        <div class="cart-summary-total">
+          <span>Total:</span>
+          <span>₹<span id="cart-total-with-delivery">0.00</span></span>
+        </div>
+        <button
+          class="checkout-btn"
+          onclick="placeOrderViaWhatsApp()"
+          type="button"
+        >
+          <i class="fas fa-leaf"></i> Place Order
+        </button>
+        <button class="clear-cart-btn" onclick="clearCart()" type="button">
+          <i class="fas fa-trash"></i> Clear Cart
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

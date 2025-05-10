@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Care Tips - Rosary Plant House</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="navigation.js" defer></script>
+    <script src="darkmode.js" defer></script>
+    <script src="cart.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <h1><i class="fas fa-leaf"></i> Rosary Plant House</h1>
+        <div class="header-controls">
+          <button
+            id="dark-mode-toggle"
+            onclick="toggleDarkMode()"
+            type="button"
+            title="Toggle Dark Mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="#" class="cart-link" id="cart-toggle"
+            ><i class="fas fa-shopping-cart"></i> Cart (<span id="cart-count"
+              >0</span
+            >)</a
+          >
+          <button
+            id="mobile-nav-toggle"
+            class="mobile-nav-toggle"
+            type="button"
+            title="Toggle Navigation Menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="care-tips.html" class="active">Care Tips</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="page-content">
+      <div class="container">
+        <h2 class="page-title">Plant Care Tips</h2>
+
+        <div class="care-tips-intro">
+          <p>
+            Proper plant care is essential for keeping your green friends happy
+            and healthy. Here are some helpful tips and guides to help your
+            plants thrive!
+          </p>
+        </div>
+
+        <div class="care-tips-container">
+          <div class="care-tip-card">
+            <div class="care-tip-icon">
+              <i class="fas fa-tint"></i>
+            </div>
+            <h3>Watering Tips</h3>
+            <ul>
+              <li>Water most plants when the top inch of soil feels dry</li>
+              <li>Use room temperature water to avoid shocking the roots</li>
+              <li>Water thoroughly until it drains from the bottom</li>
+              <li>Reduce watering in winter when plant growth slows down</li>
+              <li>Succulents and cacti need less frequent watering</li>
+              <li>Tropical plants often prefer consistently moist soil</li>
+            </ul>
+          </div>
+
+          <div class="care-tip-card">
+            <div class="care-tip-icon">
+              <i class="fas fa-sun"></i>
+            </div>
+            <h3>Light Requirements</h3>
+            <ul>
+              <li>Most houseplants need bright, indirect light</li>
+              <li>South-facing windows provide the most light</li>
+              <li>East and west windows offer moderate light</li>
+              <li>North windows provide low light</li>
+              <li>Rotate plants regularly for even growth</li>
+              <li>Use sheer curtains to filter harsh direct sunlight</li>
+            </ul>
+          </div>
+
+          <div class="care-tip-card">
+            <div class="care-tip-icon">
+              <i class="fas fa-thermometer-half"></i>
+            </div>
+            <h3>Temperature & Humidity</h3>
+            <ul>
+              <li>Most houseplants thrive in temperatures between 18-24°C</li>
+              <li>Avoid placing plants near drafts, heaters, or AC vents</li>
+              <li>Tropical plants prefer higher humidity (50-60%)</li>
+              <li>Use a humidifier or pebble tray to increase humidity</li>
+              <li>Group plants together to create a microclimate</li>
+              <li>Misting can help but only provides temporary humidity</li>
+            </ul>
+          </div>
+
+          <div class="care-tip-card">
+            <div class="care-tip-icon">
+              <i class="fas fa-seedling"></i>
+            </div>
+            <h3>Soil & Fertilizing</h3>
+            <ul>
+              <li>
+                Use well-draining potting mix appropriate for your plant type
+              </li>
+              <li>Fertilize during the growing season (spring and summer)</li>
+              <li>Use half-strength fertilizer to avoid burning roots</li>
+              <li>Don't fertilize newly repotted plants or dormant plants</li>
+              <li>Succulents and cacti need special cactus soil</li>
+              <li>Repot when roots start growing through drainage holes</li>
+            </ul>
+          </div>
+
+          <div class="care-tip-card">
+            <div class="care-tip-icon">
+              <i class="fas fa-cut"></i>
+            </div>
+            <h3>Pruning & Maintenance</h3>
+            <ul>
+              <li>Remove yellow or brown leaves regularly</li>
+              <li>Prune leggy growth to encourage bushier plants</li>
+              <li>Clean leaves with a damp cloth to remove dust</li>
+              <li>Use clean, sharp scissors for pruning</li>
+              <li>Spring is the best time for major pruning</li>
+              <li>Pinch back growth tips to encourage branching</li>
+            </ul>
+          </div>
+
+          <div class="care-tip-card">
+            <div class="care-tip-icon">
+              <i class="fas fa-bug"></i>
+            </div>
+            <h3>Pest Control</h3>
+            <ul>
+              <li>Inspect new plants before bringing them home</li>
+              <li>Isolate infected plants immediately</li>
+              <li>Treat with neem oil or insecticidal soap</li>
+              <li>Wipe leaves regularly to prevent pest infestations</li>
+              <li>Maintain good air circulation around plants</li>
+              <li>Avoid overwatering which can lead to fungus gnats</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="seasonal-care-section">
+          <h3>Seasonal Care Guide</h3>
+          <div class="seasonal-care-container">
+            <div class="season-card">
+              <h4>Spring</h4>
+              <p>
+                Increase watering as growth resumes, repot if needed, start
+                fertilizing, and clean dusty leaves.
+              </p>
+            </div>
+            <div class="season-card">
+              <h4>Summer</h4>
+              <p>
+                Provide extra humidity, protect from intense sun, water more
+                frequently, and watch for pests.
+              </p>
+            </div>
+            <div class="season-card">
+              <h4>Fall</h4>
+              <p>
+                Reduce watering and fertilizing, clean windows for maximum
+                light, and prepare to bring outdoor plants inside.
+              </p>
+            </div>
+            <div class="season-card">
+              <h4>Winter</h4>
+              <p>
+                Water less frequently, stop fertilizing, provide extra humidity,
+                and keep plants away from cold drafts.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 Rosary Plant House. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar">
+      <div class="cart-header">
+        <h2><i class="fas fa-leaf"></i> Rosary Plant Cart</h2>
+        <button
+          id="close-cart"
+          class="close-cart"
+          title="Close Cart"
+          type="button"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="cart-container"></div>
+      <div class="cart-summary">
+        <div class="cart-summary-title">
+          <i class="fas fa-receipt"></i> Order Summary
+        </div>
+        <div class="cart-summary-item">
+          <span>Subtotal:</span>
+          <span>₹<span id="cart-total">0.00</span></span>
+        </div>
+        <div class="cart-summary-item">
+          <span>Delivery:</span>
+          <span>Additional</span>
+        </div>
+        <div class="cart-summary-item">
+          <span>Total Plants:</span>
+          <span id="cart-count-total">0</span>
+        </div>
+        <div class="cart-summary-total">
+          <span>Total:</span>
+          <span>₹<span id="cart-total-with-delivery">0.00</span></span>
+        </div>
+        <button
+          class="checkout-btn"
+          onclick="placeOrderViaWhatsApp()"
+          type="button"
+        >
+          <i class="fas fa-leaf"></i> Place Order
+        </button>
+        <button class="clear-cart-btn" onclick="clearCart()" type="button">
+          <i class="fas fa-trash"></i> Clear Cart
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

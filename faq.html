@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ - Rosary Plant House</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="navigation.js" defer></script>
+    <script src="darkmode.js" defer></script>
+    <script src="cart.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <h1><i class="fas fa-leaf"></i> Rosary Plant House</h1>
+        <div class="header-controls">
+          <button
+            id="dark-mode-toggle"
+            onclick="toggleDarkMode()"
+            type="button"
+            title="Toggle Dark Mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="#" class="cart-link" id="cart-toggle"
+            ><i class="fas fa-shopping-cart"></i> Cart (<span id="cart-count"
+              >0</span
+            >)</a
+          >
+          <button
+            id="mobile-nav-toggle"
+            class="mobile-nav-toggle"
+            type="button"
+            title="Toggle Navigation Menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="faq.html" class="active">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="care-tips.html">Care Tips</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="page-content">
+      <div class="container">
+        <h2 class="page-title">Frequently Asked Questions</h2>
+
+        <div class="faq-container">
+          <div class="faq-item">
+            <h3>How often should I water my plants?</h3>
+            <p>
+              Watering frequency depends on the plant type, pot size, and
+              environmental conditions. Most indoor plants need watering when
+              the top inch of soil feels dry. Check the specific care
+              instructions for each plant as some prefer to dry out completely
+              between waterings while others need consistently moist soil.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Do you offer plant delivery?</h3>
+            <p>
+              Yes, we offer delivery services. Delivery charges vary based on
+              location. For orders above ₹1000, delivery is free within city
+              limits.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What if my plant arrives damaged?</h3>
+            <p>
+              We take great care in packaging our plants, but if your plant
+              arrives damaged, please contact us within 24 hours with photos of
+              the damage. We'll arrange a replacement or refund depending on the
+              situation.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How do I know which plants are suitable for my home?</h3>
+            <p>
+              Consider the light conditions in your home, your experience level,
+              and how much time you can dedicate to plant care. Our website
+              provides detailed information about each plant's light
+              requirements, watering needs, and difficulty level. You can also
+              contact us for personalized recommendations.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Do you offer plant care advice after purchase?</h3>
+            <p>
+              Absolutely! We're happy to provide ongoing care advice for plants
+              purchased from us. You can email us or check our Care Tips page
+              for general guidance.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What payment methods do you accept?</h3>
+            <p>
+              We accept all major credit/debit cards, UPI payments, and cash on
+              delivery for local orders.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How do I repot my plant?</h3>
+            <p>
+              Repotting is best done in spring or early summer. Choose a pot 1-2
+              inches larger than the current one with drainage holes. Use fresh
+              potting mix appropriate for your plant type. Gently remove the
+              plant from its current pot, loosen the roots slightly, and place
+              it in the new pot at the same depth it was growing before. Water
+              thoroughly after repotting.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What should I do if I see pests on my plants?</h3>
+            <p>
+              Isolate the affected plant immediately to prevent spreading.
+              Identify the pest (common ones include spider mites, mealybugs,
+              and aphids) and treat accordingly. You can use neem oil,
+              insecticidal soap, or other organic treatments. Feel free to
+              contact us for specific advice based on your situation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 Rosary Plant House. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar">
+      <div class="cart-header">
+        <h2><i class="fas fa-leaf"></i> Rosary Plant Cart</h2>
+        <button
+          id="close-cart"
+          class="close-cart"
+          title="Close Cart"
+          type="button"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="cart-container"></div>
+      <div class="cart-summary">
+        <div class="cart-summary-title">
+          <i class="fas fa-receipt"></i> Order Summary
+        </div>
+        <div class="cart-summary-item">
+          <span>Subtotal:</span>
+          <span>₹<span id="cart-total">0.00</span></span>
+        </div>
+        <div class="cart-summary-item">
+          <span>Delivery:</span>
+          <span>Additional</span>
+        </div>
+        <div class="cart-summary-item">
+          <span>Total Plants:</span>
+          <span id="cart-count-total">0</span>
+        </div>
+        <div class="cart-summary-total">
+          <span>Total:</span>
+          <span>₹<span id="cart-total-with-delivery">0.00</span></span>
+        </div>
+        <button
+          class="checkout-btn"
+          onclick="placeOrderViaWhatsApp()"
+          type="button"
+        >
+          <i class="fas fa-leaf"></i> Place Order
+        </button>
+        <button class="clear-cart-btn" onclick="clearCart()" type="button">
+          <i class="fas fa-trash"></i> Clear Cart
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

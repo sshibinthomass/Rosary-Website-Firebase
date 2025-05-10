@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rosary Plant House - Premium Plant Shop</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script type="module" src="script.js" defer></script>
+    <script src="cart.js" defer></script>
+    <script src="darkmode.js" defer></script>
+    <script src="navigation.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <h1><i class="fas fa-leaf"></i> Rosary Plant House</h1>
+        <div class="header-controls">
+          <div
+            class="multi-filter-toggle"
+            title="When enabled, you can select multiple filter options. When disabled, all filters are reset to show everything."
+          >
+            <input type="checkbox" id="multi-filter-checkbox" />
+            <label for="multi-filter-checkbox">Enable Multi-Filter</label>
+          </div>
+          <button
+            id="dark-mode-toggle"
+            onclick="toggleDarkMode()"
+            type="button"
+            title="Toggle Dark Mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="#" class="cart-link" id="cart-toggle"
+            ><i class="fas fa-shopping-cart"></i> Cart (<span id="cart-count"
+              >0</span
+            >)</a
+          >
+          <button
+            id="mobile-nav-toggle"
+            class="mobile-nav-toggle"
+            type="button"
+            title="Toggle Navigation Menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="care-tips.html">Care Tips</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+        <div class="filter-nav">
+          <div class="dropdown">
+            <button class="dropdown-toggle" type="button">
+              Watering <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-menu">
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="watering"
+                  data-value="All"
+                  checked
+                />
+                <span>All</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="watering"
+                  data-value="Low"
+                />
+                <span>Low</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="watering"
+                  data-value="Moderate"
+                />
+                <span>Moderate</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="watering"
+                  data-value="High"
+                />
+                <span>High</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="watering"
+                  data-value="Not Specific"
+                />
+                <span>Not Specific</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <button class="dropdown-toggle" type="button">
+              Category <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-menu">
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="All"
+                  checked
+                />
+                <span>All</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Succulent"
+                />
+                <span>Succulent</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Cactus"
+                />
+                <span>Cactus</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Echeveria"
+                />
+                <span>Echeveria</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Jade"
+                />
+                <span>Jade</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Crassula"
+                />
+                <span>Crassula</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Peperomia"
+                />
+                <span>Peperomia</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Aloe"
+                />
+                <span>Aloe</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Sedum"
+                />
+                <span>Sedum</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Haworthia"
+                />
+                <span>Haworthia</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Creeper"
+                />
+                <span>Creeper</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Sansevieria"
+                />
+                <span>Sansevieria</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="category"
+                  data-value="Others"
+                />
+                <span>Others</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <button class="dropdown-toggle" type="button">
+              Transit <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-menu">
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="transit"
+                  data-value="All"
+                  checked
+                />
+                <span>All</span>
+              </label>
+              <label class="dropdown-item">
+                <input type="checkbox" data-filter="transit" data-value="Low" />
+                <span>Low</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="transit"
+                  data-value="Moderate"
+                />
+                <span>Moderate</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="transit"
+                  data-value="High"
+                />
+                <span>High</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <button class="dropdown-toggle" type="button">
+              Sunlight <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-menu">
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="sunlight"
+                  data-value="All"
+                  checked
+                />
+                <span>All</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="sunlight"
+                  data-value="Low"
+                />
+                <span>Low</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="sunlight"
+                  data-value="Moderate"
+                />
+                <span>Moderate</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="sunlight"
+                  data-value="High"
+                />
+                <span>High</span>
+              </label>
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  data-filter="sunlight"
+                  data-value="Not Specific"
+                />
+                <span>Not Specific</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Notification Message -->
+    <div id="notification" class="hidden">Plant added to cart!</div>
+
+    <!-- Cart Popup -->
+    <div id="cart-popup" class="hidden">
+      <div class="popup-content">
+        <button id="close-popup" type="button" aria-label="Close popup">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="popup-header">
+          <h3>Added to Cart!</h3>
+        </div>
+        <div class="popup-body">
+          <div class="popup-plant-image">
+            <img id="popup-image" src="" alt="Plant image" />
+          </div>
+          <div class="popup-plant-details">
+            <h4 id="popup-title"></h4>
+            <p>ID: <span id="popup-id"></span></p>
+            <p>Price: <span id="popup-price"></span></p>
+            <p>Quantity: <span id="popup-quantity"></span></p>
+            <p>Total: <span id="popup-total"></span></p>
+            <div class="popup-plant-specs">
+              <p>Watering: <span id="popup-watering"></span></p>
+              <p>Category: <span id="popup-category"></span></p>
+              <p>Transit: <span id="popup-transit"></span></p>
+              <p>Sunlight: <span id="popup-sunlight"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <button id="continue-shopping" type="button">
+            Continue Shopping
+          </button>
+          <button id="view-cart" type="button">
+            <i class="fas fa-shopping-cart"></i> Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plant Details Popup -->
+    <div id="plant-details-popup" class="hidden">
+      <div class="popup-content">
+        <button
+          id="close-plant-details"
+          type="button"
+          aria-label="Close plant details"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="popup-header">
+          <h3 id="plant-details-title">Plant Details</h3>
+        </div>
+        <div class="popup-body">
+          <div class="popup-plant-image">
+            <img id="plant-details-image" src="" alt="Plant image" />
+          </div>
+          <div class="popup-plant-details">
+            <h4 id="plant-details-name"></h4>
+            <p>ID: <span id="plant-details-id"></span></p>
+            <p>Price: <span id="plant-details-price"></span></p>
+            <div class="popup-plant-specs">
+              <p>Watering: <span id="plant-details-watering"></span></p>
+              <p>Category: <span id="plant-details-category"></span></p>
+              <p>Transit: <span id="plant-details-transit"></span></p>
+              <p>Sunlight: <span id="plant-details-sunlight"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <div class="plant-details-cart-controls">
+            <label for="plant-details-quantity" class="sr-only">Quantity</label>
+            <input
+              type="number"
+              id="plant-details-quantity"
+              min="1"
+              value="1"
+              aria-label="Quantity"
+              title="Quantity"
+            />
+            <button id="plant-details-add-to-cart" type="button">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <!-- Hidden filter selects - used for JavaScript functionality -->
+      <div class="hidden-filters">
+        <select
+          id="watering-filter"
+          onchange="filterPlants()"
+          aria-label="Filter by watering needs"
+        >
+          <option value="All">All</option>
+          <option value="Low">Low</option>
+          <option value="Moderate">Moderate</option>
+          <option value="High">High</option>
+          <option value="Not Specific">Not Specific</option>
+        </select>
+
+        <select
+          id="category-filter"
+          onchange="filterPlants()"
+          aria-label="Filter by plant category"
+        >
+          <option value="All">All</option>
+          <option value="Succulent">Succulent</option>
+          <option value="Cactus">Cactus</option>
+          <option value="Echeveria">Echeveria</option>
+          <option value="Jade">Jade</option>
+          <option value="Crassula">Crassula</option>
+          <option value="Peperomia">Peperomia</option>
+          <option value="Aloe">Aloe</option>
+          <option value="Sedum">Sedum</option>
+          <option value="Haworthia">Haworthia</option>
+          <option value="Creeper">Creeper</option>
+          <option value="Sansevieria">Sansevieria</option>
+          <option value="Others">Others</option>
+        </select>
+
+        <select
+          id="transit-filter"
+          onchange="filterPlants()"
+          aria-label="Filter by transit needs"
+        >
+          <option value="All">All</option>
+          <option value="Low">Low</option>
+          <option value="Moderate">Moderate</option>
+          <option value="High">High</option>
+        </select>
+
+        <select
+          id="sunlight-filter"
+          onchange="filterPlants()"
+          aria-label="Filter by sunlight needs"
+        >
+          <option value="All">All</option>
+          <option value="Low">Low</option>
+          <option value="Moderate">Moderate</option>
+          <option value="High">High</option>
+          <option value="Not Specific">Not Specific</option>
+        </select>
+      </div>
+
+      <div id="checkbox-filters">
+        <label
+          ><input
+            type="checkbox"
+            id="filter-mother"
+            onchange="filterPlants()"
+          />
+          Big Plant</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            id="filter-hanging"
+            onchange="filterPlants()"
+          />
+          Hanging</label
+        >
+        <label
+          ><input type="checkbox" id="filter-combo" onchange="filterPlants()" />
+          Combo</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            id="filter-indoor"
+            onchange="filterPlants()"
+          />
+          Indoor</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            id="filter-restocked"
+            onchange="filterPlants()"
+          />
+          Restocked</label
+        >
+      </div>
+
+      <div id="plant-container"></div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar">
+      <div class="cart-header">
+        <h2><i class="fas fa-leaf"></i> Rosary Plant Cart</h2>
+        <button
+          id="close-cart"
+          class="close-cart"
+          title="Close Cart"
+          type="button"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="cart-container"></div>
+      <div class="cart-summary">
+        <div class="cart-summary-title">
+          <i class="fas fa-receipt"></i> Order Summary
+        </div>
+        <div class="cart-summary-item">
+          <span>Subtotal:</span>
+          <span>₹<span id="cart-total">0.00</span></span>
+        </div>
+        <div class="cart-summary-item">
+          <span>Delivery:</span>
+          <span>Additional</span>
+        </div>
+        <div class="cart-summary-item">
+          <span>Total Plants:</span>
+          <span id="cart-count-total">0</span>
+        </div>
+        <div class="cart-summary-total">
+          <span>Total:</span>
+          <span>₹<span id="cart-total-with-delivery">0.00</span></span>
+        </div>
+        <button
+          class="checkout-btn"
+          onclick="placeOrderViaWhatsApp()"
+          type="button"
+        >
+          <i class="fas fa-leaf"></i> Place Order
+        </button>
+        <button class="clear-cart-btn" onclick="clearCart()" type="button">
+          <i class="fas fa-trash"></i> Clear Cart
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
