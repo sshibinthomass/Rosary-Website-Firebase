@@ -516,10 +516,10 @@ function showCartPopup(
   popup.classList.remove("hidden");
   popup.classList.add("visible");
 
-  // Set up auto-close timer (3 seconds instead of 5)
+  // Set up auto-close timer (1 second)
   const autoCloseTimer = setTimeout(() => {
     closeCartPopup();
-  }, 3000);
+  }, 1000);
 
   // Store the timer ID so we can clear it if the user manually closes the popup
   popup.dataset.timerId = autoCloseTimer;
@@ -580,19 +580,6 @@ document
 document
   .getElementById("continue-shopping")
   .addEventListener("click", closeCartPopup);
-document.getElementById("view-cart").addEventListener("click", (event) => {
-  event.stopPropagation(); // Prevent the click from immediately closing the sidebar
-  closeCartPopup();
-
-  const cartSidebar = document.getElementById("cart-sidebar");
-  cartSidebar.classList.add("active");
-  loadCart();
-
-  // Add a click event listener to close the sidebar when clicking outside
-  setTimeout(() => {
-    document.addEventListener("click", closeCartSidebarOnOutsideClick);
-  }, 10);
-});
 
 // Plant Details Popup Functions
 function showPlantDetailsPopup(plant) {

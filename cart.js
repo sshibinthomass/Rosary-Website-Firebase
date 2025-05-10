@@ -18,18 +18,23 @@ function loadCart() {
     }">
             <div class="cart-item-details">
               <h3 class="cart-item-title">${item.id}. ${item.title}</h3>
-              <p class="cart-item-price">₹${item.price} per plant</p>
+              <p class="cart-item-price">₹${item.price}*${item.quantity}=₹${
+      item.price * item.quantity
+    }</p>
               <div class="cart-item-controls">
                 <div class="quantity-controls">
-                  <button class="qty-btn decrease" data-index="${index}"><i class="fas fa-minus"></i></button>
+                  <button class="qty-btn decrease" data-index="${index}" aria-label="Decrease quantity">
+                    <i class="fas fa-minus" aria-hidden="true"></i>
+                  </button>
                   <span class="quantity-value">${item.quantity}</span>
-                  <button class="qty-btn increase" data-index="${index}"><i class="fas fa-plus"></i></button>
+                  <button class="qty-btn increase" data-index="${index}" aria-label="Increase quantity">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                  </button>
                 </div>
-                <button class="remove-btn" data-index="${index}"><i class="fas fa-trash-alt"></i> Remove</button>
+                <button class="remove-btn" data-index="${index}" aria-label="Remove item">
+                  <i class="fas fa-trash-alt" aria-hidden="true"></i> Remove
+                </button>
               </div>
-              <p class="cart-item-subtotal">Subtotal: ₹${
-                item.price * item.quantity
-              }</p>
             </div>
           `;
 
@@ -56,21 +61,28 @@ function loadCart() {
   document.querySelectorAll(".increase").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation(); // Prevent the click from closing the sidebar
-      changeQuantity(event.target.dataset.index, 1);
+      // Get the index from the button's data attribute, not from the target
+      // This ensures it works whether you click the button or the icon inside
+      const index = button.dataset.index;
+      changeQuantity(index, 1);
     });
   });
 
   document.querySelectorAll(".decrease").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation(); // Prevent the click from closing the sidebar
-      changeQuantity(event.target.dataset.index, -1);
+      // Get the index from the button's data attribute, not from the target
+      const index = button.dataset.index;
+      changeQuantity(index, -1);
     });
   });
 
   document.querySelectorAll(".remove-btn").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation(); // Prevent the click from closing the sidebar
-      removeFromCart(event.target.dataset.index);
+      // Get the index from the button's data attribute, not from the target
+      const index = button.dataset.index;
+      removeFromCart(index);
     });
   });
 }
@@ -85,7 +97,13 @@ function changeQuantity(index, amount) {
 
   localStorage.setItem("cart", JSON.stringify(cart));
   loadCart();
-  updateCartCount(); // Add this line
+
+  // Update cart count in header
+  if (typeof updateCartCountDisplay === "function") {
+    updateCartCountDisplay();
+  } else {
+    updateCartCount();
+  }
 }
 
 function removeFromCart(index) {
@@ -93,13 +111,25 @@ function removeFromCart(index) {
   cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
   loadCart();
-  updateCartCount(); // Add this line
+
+  // Update cart count in header
+  if (typeof updateCartCountDisplay === "function") {
+    updateCartCountDisplay();
+  } else {
+    updateCartCount();
+  }
 }
 
 function clearCart() {
   localStorage.removeItem("cart");
   loadCart();
-  updateCartCount();
+
+  // Update cart count in header
+  if (typeof updateCartCountDisplay === "function") {
+    updateCartCountDisplay();
+  } else {
+    updateCartCount();
+  }
 }
 
 // Toggle cart sidebar
@@ -233,4 +263,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Load cart initially
 loadCart();
-updateCartCount();
+
+// Update cart count in header
+if (typeof updateCartCountDisplay === "function") {
+  updateCartCountDisplay();
+} else {
+  updateCartCount();
+}

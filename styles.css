@@ -237,7 +237,23 @@ header h1 i {
     color: var(--text-color);
     font-size: 1.5rem;
     cursor: pointer;
-    padding: 5px;
+    padding: 10px;
+    position: relative;
+    /* Add a larger touch target */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 10;
+}
+
+/* Add a pseudo-element to increase the touch area */
+.mobile-nav-toggle::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    z-index: -1;
 }
 
 /* Dropdown Menus */
@@ -269,6 +285,9 @@ header h1 i {
     width: 100%;
     position: relative; /* Added position relative */
     z-index: 5; /* Added z-index */
+    /* Add a larger touch target */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .dropdown-toggle:hover {
@@ -455,16 +474,32 @@ header h1 i {
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s;
+    position: relative;
+    /* Add a larger touch target */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 10;
 }
 
 #dark-mode-toggle:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Add a pseudo-element to increase the touch area */
+#dark-mode-toggle::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    z-index: -1;
+}
+
 .cart-link {
     background: var(--secondary-color);
     color: var(--button-text);
-    padding: 8px 15px;
+    padding: 10px 18px;
     border-radius: 50px;
     text-decoration: none;
     font-size: 0.9rem;
@@ -474,10 +509,26 @@ header h1 i {
     gap: 6px;
     cursor: pointer;
     transition: background-color 0.3s;
+    position: relative;
+    /* Add a larger touch target */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 10;
 }
 
 .cart-link:hover {
     background-color: #ff8533;
+}
+
+/* Add a pseudo-element to increase the touch area */
+.cart-link::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    z-index: -1;
 }
 
 .cart-link span {
@@ -755,7 +806,6 @@ main {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-
 .season-card h4 {
     color: var(--accent-color);
     margin-top: 0;
@@ -1267,8 +1317,8 @@ main {
     border-top: 1px solid var(--border-color);
     background-color: rgba(0, 0, 0, 0.03);
     border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 5px;
+    margin-bottom: 5px;
 }
 
 .cart-summary-title {
@@ -1295,8 +1345,8 @@ main {
     display: flex;
     justify-content: space-between;
     font-weight: 700;
-    margin-top: 10px;
-    padding-top: 10px;
+    margin-top: 5px;
+    padding-top: 5px;
     border-top: 1px dashed var(--border-color);
     font-size: 1.1rem;
     color: var(--accent-color);
@@ -1420,14 +1470,14 @@ main {
 #cart-container {
     flex: 1;
     overflow-y: auto;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .cart-item {
     background-color: var(--card-bg);
     border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
+    padding: 5px;
+    margin-bottom: 5px;
     display: flex;
     align-items: flex-start;
     box-shadow: var(--card-shadow);
@@ -1479,7 +1529,7 @@ main {
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 2px;
 }
 
 .quantity-controls {
@@ -1501,8 +1551,8 @@ main {
     background-color: var(--accent-color);
     color: var(--button-text);
     border: none;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -1510,11 +1560,26 @@ main {
     justify-content: center;
     font-size: 0.8rem;
     transition: all 0.2s;
+    position: relative;
+    /* Add a larger touch target */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .qty-btn:hover {
     background-color: var(--accent-hover);
     transform: scale(1.1);
+}
+
+/* Add a pseudo-element to increase the touch area */
+.qty-btn::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    z-index: -1;
 }
 
 .remove-btn {
@@ -1523,17 +1588,32 @@ main {
     color: var(--secondary-color);
     cursor: pointer;
     font-size: 0.9rem;
-    padding: 5px 10px;
+    padding: 8px 12px;
     border-radius: 20px;
     transition: all 0.2s;
     display: flex;
     align-items: center;
     gap: 5px;
+    position: relative;
+    /* Add a larger touch target */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .remove-btn:hover {
     background-color: rgba(231, 76, 60, 0.1);
     color: #e74c3c;
+}
+
+/* Add a pseudo-element to increase the touch area */
+.remove-btn::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    z-index: -1;
 }
 
 /* Screen Reader Only - Accessibility */
@@ -1711,6 +1791,10 @@ main {
     font-weight: 600;
     font-size: 0.9rem;
     transition: background-color 0.2s;
+}
+
+.full-width-btn {
+    width: 100%;
 }
 
 #continue-shopping {
