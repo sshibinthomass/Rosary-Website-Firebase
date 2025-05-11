@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plant Care Guide - Rosary Plant House</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="navigation.js" defer></script>
+    <script src="darkmode.js" defer></script>
+    <script src="cart.js" defer></script>
+    <script src="cart-count.js" defer></script>
+    <script type="module" src="plant-care.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <h1><i class="fas fa-leaf"></i> Rosary Plant House</h1>
+        <div class="header-controls">
+          <button
+            id="dark-mode-toggle"
+            onclick="toggleDarkMode()"
+            type="button"
+            title="Toggle Dark Mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <button
+            id="cart-toggle"
+            type="button"
+            aria-label="View Cart"
+            title="View Cart"
+          >
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count">0</span>
+          </button>
+          <button
+            id="nav-toggle"
+            class="mobile-only"
+            type="button"
+            aria-label="Toggle navigation"
+            title="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="plant-care.html" class="active">Plant Care Guide</a></li>
+          <li><a href="filtered-plants.html">Filtered Plants</a></li>
+          <li><a href="bill-generator.html">Bill Generator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar">
+      <div class="cart-header">
+        <h2><i class="fas fa-leaf"></i> Rosary Plant Cart</h2>
+        <button
+          id="close-cart"
+          class="close-cart"
+          title="Close Cart"
+          type="button"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="cart-container"></div>
+      <div class="cart-summary">
+        <div class="cart-summary-title">
+          <i class="fas fa-receipt"></i> Order Summary
+        </div>
+        <div class="cart-summary-columns">
+          <div class="cart-summary-left">
+            <div class="cart-summary-item">
+              <span>Delivery:</span>
+              <span>Additional</span>
+            </div>
+          </div>
+          <div class="cart-summary-right">
+            <div class="cart-summary-item">
+              <span>Total Plants:</span>
+              <span id="cart-count-total">0</span>
+            </div>
+            <div class="cart-summary-total">
+              <span>Total:</span>
+              <span>₹<span id="cart-total-with-delivery">0.00</span></span>
+            </div>
+          </div>
+        </div>
+        <button
+          class="place-order-btn"
+          onclick="placeOrderViaWhatsApp()"
+          type="button"
+        >
+          <i class="fas fa-leaf"></i> Place Order
+        </button>
+        <div class="cart-summary-actions">
+          <button class="clear-cart-btn" onclick="clearCart()" type="button">
+            <i class="fas fa-trash"></i> Clear Cart
+          </button>
+          <button
+            class="close-cart-btn"
+            onclick="closeCartSidebar()"
+            type="button"
+          >
+            <i class="fas fa-times"></i> Close Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main class="page-content">
+      <div class="container">
+        <h2 class="page-title">Plant Care Guide</h2>
+
+        <div class="care-guide-intro">
+          <p>
+            This comprehensive guide provides detailed care information for all
+            our plants, whether currently available or not. Use this guide to
+            learn about the specific needs of each plant in our collection.
+          </p>
+        </div>
+
+        <div class="filter-controls">
+          <div class="filter-section">
+            <h3>Filter Plants</h3>
+            <div class="filter-row">
+              <div class="filter-group">
+                <label for="filter-watering">Watering:</label>
+                <select id="filter-watering">
+                  <option value="All">All</option>
+                  <option value="Low">Low</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filter-sunlight">Sunlight:</label>
+                <select id="filter-sunlight">
+                  <option value="All">All</option>
+                  <option value="Low">Low</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <label for="filter-availability">Availability:</label>
+                <select id="filter-availability">
+                  <option value="All">All Plants</option>
+                  <option value="Available">Available Only</option>
+                  <option value="Unavailable">Unavailable Only</option>
+                </select>
+              </div>
+              <button id="clear-filters" class="clear-filter-btn" type="button">
+                Clear Filters
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="plant-care-table-container">
+          <table id="plant-care-table" class="plant-care-table">
+            <thead>
+              <tr>
+                <th class="sortable" data-sort="id">
+                  S.No <i class="fas fa-sort"></i>
+                </th>
+                <th class="sortable" data-sort="title">
+                  Plant Name <i class="fas fa-sort"></i>
+                </th>
+                <th class="sortable" data-sort="watering">
+                  Watering <i class="fas fa-sort"></i>
+                </th>
+                <th class="sortable" data-sort="sunlight">
+                  Sunlight <i class="fas fa-sort"></i>
+                </th>
+                <th>Photo</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="plant-care-table-body">
+              <!-- Plant data will be loaded here by JavaScript -->
+              <tr>
+                <td colspan="6" class="loading-message">
+                  Loading plant data...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="no-results-message" class="no-results-message hidden">
+          <p>No plants match your current filter criteria.</p>
+          <button id="reset-filters" class="reset-filters-btn" type="button">
+            Reset All Filters
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 Rosary Plant House. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

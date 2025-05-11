@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filtered Plants - Rosary Plant House</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="navigation.js" defer></script>
+    <script src="darkmode.js" defer></script>
+    <script src="cart.js" defer></script>
+    <script src="cart-count.js" defer></script>
+    <script type="module" src="filtered-plants.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <h1><i class="fas fa-leaf"></i> Rosary Plant House</h1>
+        <div class="header-controls">
+          <button
+            id="dark-mode-toggle"
+            onclick="toggleDarkMode()"
+            type="button"
+            title="Toggle Dark Mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="#" class="cart-link" id="cart-toggle"
+            ><i class="fas fa-shopping-cart"></i> Cart (<span id="cart-count"
+              >0</span
+            >)</a
+          >
+          <button
+            id="mobile-nav-toggle"
+            class="mobile-nav-toggle"
+            type="button"
+            title="Toggle Navigation Menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="plant-care.html">Plant Care Guide</a></li>
+          <li>
+            <a href="filtered-plants.html" class="active">Filtered Plants</a>
+          </li>
+          <li><a href="bill-generator.html">Bill Generator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar">
+      <div class="cart-header">
+        <h2><i class="fas fa-leaf"></i> Rosary Plant Cart</h2>
+        <button
+          id="close-cart"
+          class="close-cart"
+          title="Close Cart"
+          type="button"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="cart-container"></div>
+      <div class="cart-summary">
+        <div class="cart-summary-title">
+          <i class="fas fa-receipt"></i> Order Summary
+        </div>
+        <div class="cart-summary-columns">
+          <div class="cart-summary-left">
+            <div class="cart-summary-item">
+              <span>Delivery:</span>
+              <span>Additional</span>
+            </div>
+          </div>
+          <div class="cart-summary-right">
+            <div class="cart-summary-item">
+              <span>Total Plants:</span>
+              <span id="cart-count-total">0</span>
+            </div>
+            <div class="cart-summary-total">
+              <span>Total:</span>
+              <span>₹<span id="cart-total-with-delivery">0.00</span></span>
+            </div>
+          </div>
+        </div>
+        <button
+          class="place-order-btn"
+          onclick="placeOrderViaWhatsApp()"
+          type="button"
+        >
+          <i class="fas fa-leaf"></i> Place Order
+        </button>
+        <div class="cart-summary-actions">
+          <button class="clear-cart-btn" onclick="clearCart()" type="button">
+            <i class="fas fa-trash"></i> Clear Cart
+          </button>
+          <button
+            class="close-cart-btn"
+            onclick="closeCartSidebar()"
+            type="button"
+          >
+            <i class="fas fa-times"></i> Close Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main class="page-content">
+      <div class="container">
+        <h2 class="page-title">Filtered Plants</h2>
+
+        <div class="filter-intro">
+          <p>
+            Use the filters below to find the perfect plants for your needs. You
+            can filter by multiple criteria to narrow down your search.
+          </p>
+        </div>
+
+        <div class="advanced-filter-controls">
+          <div class="filter-section">
+            <h3>Filter Plants</h3>
+            <div class="filter-grid">
+              <div class="filter-group">
+                <label>Watering:</label>
+                <div class="custom-dropdown" id="watering-dropdown">
+                  <button type="button" class="dropdown-toggle">
+                    Select Options <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="Low" name="watering" />
+                        Low
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Moderate"
+                          name="watering"
+                        />
+                        Moderate
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="High" name="watering" />
+                        High
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label>Sunlight:</label>
+                <div class="custom-dropdown" id="sunlight-dropdown">
+                  <button type="button" class="dropdown-toggle">
+                    Select Options <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="Low" name="sunlight" />
+                        Low
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Moderate"
+                          name="sunlight"
+                        />
+                        Moderate
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="High" name="sunlight" />
+                        High
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label>Transit Risk:</label>
+                <div class="custom-dropdown" id="transit-dropdown">
+                  <button type="button" class="dropdown-toggle">
+                    Select Options <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="Low" name="transit" /> Low
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Moderate"
+                          name="transit"
+                        />
+                        Moderate
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="High" name="transit" />
+                        High
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label>Category:</label>
+                <div class="custom-dropdown" id="category-dropdown">
+                  <button type="button" class="dropdown-toggle">
+                    Select Options <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Succulent"
+                          name="category"
+                        />
+                        Succulent
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="Cactus" name="category" />
+                        Cactus
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Echeveria"
+                          name="category"
+                        />
+                        Echeveria
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="Jade" name="category" />
+                        Jade
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Crassula"
+                          name="category"
+                        />
+                        Crassula
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Peperomia"
+                          name="category"
+                        />
+                        Peperomia
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="Aloe" name="category" />
+                        Aloe
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="Sedum" name="category" />
+                        Sedum
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Haworthia"
+                          name="category"
+                        />
+                        Haworthia
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Creeper"
+                          name="category"
+                        />
+                        Creeper
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Sansevieria"
+                          name="category"
+                        />
+                        Sansevieria
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="Others" name="category" />
+                        Others
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label>Availability:</label>
+                <div class="custom-dropdown" id="availability-dropdown">
+                  <button type="button" class="dropdown-toggle">
+                    Select Options <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Available"
+                          name="availability"
+                        />
+                        Available
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Unavailable"
+                          name="availability"
+                        />
+                        Unavailable
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label>Price Range:</label>
+                <div class="custom-dropdown" id="price-dropdown">
+                  <button type="button" class="dropdown-toggle">
+                    Select Options <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="0-100" name="price" /> ₹0
+                        - ₹100
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="100-200" name="price" />
+                        ₹100 - ₹200
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="200-300" name="price" />
+                        ₹200 - ₹300
+                      </label>
+                    </div>
+                    <div class="dropdown-item">
+                      <label>
+                        <input type="checkbox" value="300+" name="price" />
+                        ₹300+
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="filter-actions">
+              <button id="clear-filters" class="clear-filter-btn" type="button">
+                <i class="fas fa-times"></i> Clear All Filters
+              </button>
+              <button id="apply-filters" class="apply-filter-btn" type="button">
+                <i class="fas fa-filter"></i> Apply Filters
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="no-results-message" class="no-results-message hidden">
+          <p>No plants match your current filter criteria.</p>
+          <button id="reset-filters" class="reset-filters-btn" type="button">
+            Reset All Filters
+          </button>
+        </div>
+
+        <div class="filtered-plants-table-container">
+          <table id="filtered-plants-table" class="filtered-plants-table">
+            <thead>
+              <tr>
+                <th class="sortable" data-sort="id">
+                  S.No <i class="fas fa-sort"></i>
+                </th>
+                <th class="sortable" data-sort="title">
+                  Plant Name <i class="fas fa-sort"></i>
+                </th>
+                <th class="sortable" data-sort="watering">
+                  Watering <i class="fas fa-sort"></i>
+                </th>
+                <th class="sortable" data-sort="sunlight">
+                  Sunlight <i class="fas fa-sort"></i>
+                </th>
+                <th class="sortable" data-sort="transit">
+                  Transit Risk <i class="fas fa-sort"></i>
+                </th>
+                <th class="sortable" data-sort="category">
+                  Category <i class="fas fa-sort"></i>
+                </th>
+                <th class="sortable" data-sort="price">
+                  Price <i class="fas fa-sort"></i>
+                </th>
+                <th>Photo</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="filtered-plants-container">
+              <!-- Plants will be loaded here by JavaScript -->
+              <tr>
+                <td colspan="9" class="loading-message">
+                  <i class="fas fa-spinner fa-spin"></i> Loading plants...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- Plant Details Popup -->
+    <div id="plant-details-popup" class="hidden">
+      <div class="popup-content">
+        <button
+          id="close-plant-details"
+          type="button"
+          aria-label="Close plant details"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="popup-header">
+          <h3 id="plant-details-title">Plant Details</h3>
+        </div>
+        <div class="popup-body">
+          <div class="popup-plant-image">
+            <img id="plant-details-image" src="" alt="Plant image" />
+          </div>
+          <div class="popup-plant-details">
+            <h4 id="plant-details-name"></h4>
+            <p>ID: <span id="plant-details-id"></span></p>
+            <p>Price: <span id="plant-details-price"></span></p>
+            <div class="popup-plant-specs">
+              <p>Watering: <span id="plant-details-watering"></span></p>
+              <p>Category: <span id="plant-details-category"></span></p>
+              <p>Transit: <span id="plant-details-transit"></span></p>
+              <p>Sunlight: <span id="plant-details-sunlight"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <button
+            id="close-details-btn"
+            class="close-details-btn"
+            type="button"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 Rosary Plant House. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

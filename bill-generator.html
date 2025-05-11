@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bill Generator - Rosary Plant House</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="bill-generator.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="navigation.js" defer></script>
+    <script src="darkmode.js" defer></script>
+    <script src="cart.js" defer></script>
+    <script src="cart-count.js" defer></script>
+    <script type="module" src="bill-generator.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-top">
+        <h1><i class="fas fa-leaf"></i> Rosary Plant House</h1>
+        <div class="header-controls">
+          <button
+            id="dark-mode-toggle"
+            onclick="toggleDarkMode()"
+            type="button"
+            title="Toggle Dark Mode"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="#" class="cart-link" id="cart-toggle"
+            ><i class="fas fa-shopping-cart"></i> Cart (<span id="cart-count"
+              >0</span
+            >)</a
+          >
+          <button
+            id="mobile-nav-toggle"
+            class="mobile-nav-toggle"
+            type="button"
+            title="Toggle Navigation Menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="plant-care.html">Plant Care Guide</a></li>
+          <li><a href="filtered-plants.html">Filtered Plants</a></li>
+          <li>
+            <a href="bill-generator.html" class="active">Bill Generator</a>
+          </li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar">
+      <div class="cart-header">
+        <h2><i class="fas fa-leaf"></i> Rosary Plant Cart</h2>
+        <button
+          id="close-cart"
+          class="close-cart"
+          title="Close Cart"
+          type="button"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="cart-container"></div>
+      <div class="cart-summary">
+        <div class="cart-summary-title">
+          <i class="fas fa-receipt"></i> Order Summary
+        </div>
+        <div class="cart-summary-columns">
+          <div class="cart-summary-left">
+            <div class="cart-summary-item">
+              <span>Delivery:</span>
+              <span>Additional</span>
+            </div>
+          </div>
+          <div class="cart-summary-right">
+            <div class="cart-summary-item">
+              <span>Total Plants:</span>
+              <span id="cart-count-total">0</span>
+            </div>
+            <div class="cart-summary-total">
+              <span>Total:</span>
+              <span>₹<span id="cart-total-with-delivery">0.00</span></span>
+            </div>
+          </div>
+        </div>
+        <button
+          class="place-order-btn"
+          onclick="placeOrderViaWhatsApp()"
+          type="button"
+        >
+          <i class="fas fa-leaf"></i> Place Order
+        </button>
+        <div class="cart-summary-actions">
+          <button class="clear-cart-btn" onclick="clearCart()" type="button">
+            <i class="fas fa-trash"></i> Clear Cart
+          </button>
+          <button
+            class="close-cart-btn"
+            onclick="closeCartSidebar()"
+            type="button"
+          >
+            <i class="fas fa-times"></i> Close Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main class="page-content">
+      <div class="container">
+        <h2 class="page-title">Bill Generator</h2>
+
+        <div class="bill-generator-intro">
+          <p>
+            Generate a bill by entering plant IDs and quantities in the format:
+            <code>plant_id-quantity</code> (comma-separated).
+          </p>
+          <p>
+            Example: <code>3-2,7-1,11-1,15-4,1-1</code> (Plant ID 3 quantity 2,
+            Plant ID 7 quantity 1, etc.)
+          </p>
+          <p>
+            <i class="fas fa-info-circle"></i> Note: If you repeat plant IDs
+            (e.g., <code>3-2,7-1,3-3</code>), quantities will be automatically
+            merged (Plant ID 3 quantity 5).
+          </p>
+        </div>
+
+        <div class="bill-generator-form">
+          <div class="form-group">
+            <label for="plant-list">Enter Plant IDs and Quantities:</label>
+            <textarea
+              id="plant-list"
+              placeholder="Example: 3-2,7-1,11-1,15-4,1-1"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="customer-name">Customer Name:</label>
+            <input
+              type="text"
+              id="customer-name"
+              placeholder="Enter customer name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="customer-phone">Customer Phone:</label>
+            <input
+              type="text"
+              id="customer-phone"
+              placeholder="Enter customer phone"
+            />
+          </div>
+          <div class="form-group">
+            <label for="customer-address">Customer Address:</label>
+            <textarea
+              id="customer-address"
+              placeholder="Enter customer address"
+              rows="2"
+            ></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group half-width">
+              <label for="customer-pincode"
+                >Pincode: <span class="optional-label">(Optional)</span></label
+              >
+              <input
+                type="text"
+                id="customer-pincode"
+                placeholder="Enter delivery pincode"
+              />
+            </div>
+
+            <div class="form-group half-width">
+              <label for="delivery-charges"
+                >Delivery Charges:
+                <span class="optional-label">(Optional)</span></label
+              >
+              <input
+                type="number"
+                id="delivery-charges"
+                placeholder="Enter custom delivery charges"
+                min="0"
+                value="99"
+              />
+              <small class="input-help"
+                >Default: ₹99. Leave empty for free delivery.</small
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="delivery-partner">Delivery Partner:</label>
+            <select id="delivery-partner">
+              <option value="DTDC Courier">DTDC Courier</option>
+              <option value="India Post">India Post</option>
+              <option value="Delhivery">Delhivery</option>
+              <option value="BlueDart">BlueDart</option>
+              <option value="Self Pickup">Self Pickup</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button id="generate-bill-btn" type="button" class="primary-btn">
+              <i class="fas fa-receipt"></i> Generate Bill
+            </button>
+          </div>
+        </div>
+
+        <div id="bill-container" class="bill-container hidden">
+          <div id="bill-content" class="bill-content">
+            <div class="bill-header">
+              <div class="bill-company">
+                <h2>Rosary Plant House</h2>
+                <p>Your Trusted Plant Nursery</p>
+              </div>
+              <div class="bill-info">
+                <p>
+                  <strong>Invoice #:</strong>
+                  <span id="bill-invoice-number"></span>
+                </p>
+                <p><strong>Date:</strong> <span id="bill-date"></span></p>
+              </div>
+            </div>
+
+            <div class="bill-customer-info">
+              <h3>Customer Information</h3>
+              <p>
+                <strong>Name:</strong> <span id="bill-customer-name"></span>
+              </p>
+              <p>
+                <strong>Phone:</strong> <span id="bill-customer-phone"></span>
+              </p>
+              <p>
+                <strong>Address:</strong>
+                <span id="bill-customer-address"></span>
+                <span id="bill-customer-pincode-container" class="hidden">
+                  - <span id="bill-customer-pincode"></span>
+                </span>
+              </p>
+              <p id="bill-delivery-partner-container">
+                <strong>Delivery Partner:</strong>
+                <span id="bill-delivery-partner"></span>
+              </p>
+            </div>
+
+            <div class="bill-items">
+              <h3>Order Details</h3>
+              <table class="bill-table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Image</th>
+                    <th>Plant ID</th>
+                    <th>Plant Name</th>
+                    <th>Price (₹)</th>
+                    <th>Quantity</th>
+                    <th>Total (₹)</th>
+                  </tr>
+                </thead>
+                <tbody id="bill-items-body">
+                  <!-- Items will be added here by JavaScript -->
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="6" class="bill-total-label">Subtotal:</td>
+                    <td class="bill-total-value">
+                      ₹<span id="bill-subtotal">0.00</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="bill-total-label">
+                      Delivery Charge:
+                    </td>
+                    <td class="bill-total-value">
+                      ₹<span id="bill-delivery">0.00</span>
+                    </td>
+                  </tr>
+                  <tr class="bill-grand-total">
+                    <td colspan="6" class="bill-total-label">Grand Total:</td>
+                    <td class="bill-total-value">
+                      ₹<span id="bill-grand-total">0.00</span>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <div class="bill-footer">
+              <p>Thank you for shopping with Rosary Plant House!</p>
+              <p>
+                For any queries, please contact us at:
+                <strong>+91 9876543210</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="bill-actions">
+            <button id="export-pdf-btn" type="button" class="primary-btn">
+              <i class="fas fa-file-pdf"></i> Export as PDF
+            </button>
+            <button id="print-bill-btn" type="button" class="secondary-btn">
+              <i class="fas fa-print"></i> Print
+            </button>
+            <button id="new-bill-btn" type="button" class="tertiary-btn">
+              <i class="fas fa-plus"></i> New Bill
+            </button>
+          </div>
+        </div>
+
+        <div id="error-message" class="error-message hidden">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span id="error-text"></span>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 Rosary Plant House. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
