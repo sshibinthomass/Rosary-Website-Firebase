@@ -50,7 +50,7 @@ const errorMessage = document.getElementById("error-message");
 const errorText = document.getElementById("error-text");
 
 // Constants
-const DEFAULT_DELIVERY_CHARGE = 99; // Default delivery charge in rupees
+const DEFAULT_DELIVERY_CHARGE = 100; // Default delivery charge in rupees
 
 // Fetch all plants from Firebase
 async function fetchPlants() {
